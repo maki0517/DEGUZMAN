@@ -1,0 +1,19 @@
+
+<ion-content [fullscreen]="true">
+
+    <ion-card-header>
+      <ion-card-title> QUOTATIONS </ion-card-title>
+      <ion-card-subtitle> </ion-card-subtitle>
+    </ion-card-header>
+  
+    <ion-card-content >
+      <div class="content" *ngFor="let Quotations of quote; let i = index;">
+        <div *ngIf="i < 10">
+       <b>Author :</b> {{Quotations.author}} 
+       <b> Content :</b>{{Quotations.content}} 
+      </div>
+    </div>
+    </ion-card-content>
+
+  <ion-button (click)="logOut()"> LOG OUT </ion-button>
+</ion-content>
