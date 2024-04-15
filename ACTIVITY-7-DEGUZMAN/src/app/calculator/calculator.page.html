@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>CALCULATOR</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="calculator">
+
+    <div class="inputBtn">
+      <ion-input class="result" [(ngModel)]="result"></ion-input>
+      <label>History</label>
+      <ion-input class="history" [(ngModel)]="fieldText"></ion-input>
+    </div>
+
+    <div class="container">
+      <div class="numbers">
+        <ion-button class="item1" (click)="clickBtn(1)">1</ion-button>
+        <ion-button class="item1" (click)="clickBtn(2)">2</ion-button>
+        <ion-button class="item1" (click)="clickBtn(3)">3</ion-button>
+        <ion-button class="item1" (click)="clickBtn(4)">4</ion-button>
+        <ion-button class="item1" (click)="clickBtn(5)">5</ion-button>
+        <ion-button class="item1" (click)="clickBtn(6)">6</ion-button>
+        <ion-button class="item1" (click)="clickBtn(7)">7</ion-button>
+        <ion-button class="item1" (click)="clickBtn(8)">8</ion-button>
+        <ion-button class="item1" (click)="clickBtn(9)">9</ion-button>
+        <ion-button class="item1" (click)="clearBtn()">C</ion-button>
+        <ion-button class="item1" (click)="clickBtn(0)">0</ion-button>
+        <ion-button class="item1" (click)="equalBtn()"><b>=</b></ion-button>
+      </div>
+
+
+      <div class="operation">
+        <ion-button class="item2" (click)="operation('/')"><b>/</b></ion-button>
+        <ion-button class="item2" (click)="operation('*')"><b>x</b></ion-button>
+        <ion-button class="item2" (click)="operation('-')"><b>-</b></ion-button>
+        <ion-button class="item2" (click)="operation('+')"><b>+</b></ion-button>
+      </div>
+
+    </div>
+  </div>
+</ion-content>
