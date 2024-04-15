@@ -1,0 +1,7 @@
+{
+  "name": "codea8e-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
