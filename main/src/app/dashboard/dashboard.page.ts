@@ -37,4 +37,8 @@ export class DashboardPage implements OnInit {
       console.error('Logout error:', error);
     }
   }
+  
+  navigateToCalculator() {
+    this.router.navigate(['/calculator']);
+  }
 }

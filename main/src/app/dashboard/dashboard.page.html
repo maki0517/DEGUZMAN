@@ -23,10 +23,12 @@
       <p><strong>Brief Description:</strong> {{ briefDescription }}</p>
       <p><strong>Hobbies:</strong></p>
       <ion-list lines="none">
-        <ion-item *ngFor="let hobby of hobbies">
-          {{ hobby }}
-        </ion-item>
+        <ion-item *ngFor="let hobby of hobbies"> {{ hobby }} </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
+
+  <div class="ion-text-center ion-margin-bottom">
+    <ion-button (click)="navigateToCalculator()">Go to Calculator</ion-button>
+  </div>
 </ion-content>
