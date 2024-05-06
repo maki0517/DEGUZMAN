@@ -19,7 +19,14 @@
       <h3>User Information</h3>
     </ion-card-header>
     <ion-card-content>
-      <!-- <p>Email: {{ userEmail }}</p> -->
+      <p><strong>Name:</strong> {{ userName }}</p>
+      <p><strong>Brief Description:</strong> {{ briefDescription }}</p>
+      <p><strong>Hobbies:</strong></p>
+      <ion-list lines="none">
+        <ion-item *ngFor="let hobby of hobbies">
+          {{ hobby }}
+        </ion-item>
+      </ion-list>
     </ion-card-content>
   </ion-card>
 </ion-content>

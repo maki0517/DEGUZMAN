@@ -46,6 +46,8 @@ export class AuthService {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       this.setAuthentication(true);
+      localStorage.setItem('loggedIn', 'true');
+      localStorage.setItem('email', email); // Save email
       await this.presentAlert('Success', 'Login successful');
       this.router.navigate(['/home']);
     } catch (error) {

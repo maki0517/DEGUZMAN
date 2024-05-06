@@ -8,17 +8,30 @@ import { AuthService } from '../auth.service'; // Import your AuthService
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+  userEmail: string = '';
+  userName: string = '';
+  briefDescription: string = '';
+  hobbies: string[] = [];
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.userEmail = localStorage.getItem('email') as string;
+
+    if (this.userEmail === 'maki@gmail.com') {
+      this.userName = 'Maki DeGuzman';
+      this.briefDescription = 'A second year BSIT Student';
+      this.hobbies = ['Singing', 'Dancing', 'Story Creation'];
+    } else {
+      this.userName = 'Guest';
+      this.briefDescription = 'Short Description...';
+      this.hobbies = ['N/A'];
+    }
   }
 
   async logout() {
     try {
-      // Call the logout method from your AuthService
       await this.authService.logout();
-      // Navigate to the login page after logout
       this.router.navigate(['/login']);
     } catch (error) {
       console.error('Logout error:', error);
