@@ -1,0 +1,28 @@
+ion-content {
+  --background: linear-gradient(to bottom right, #fd8fc6, #ef49a2);
+
+  ion-item {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    margin-bottom: 20px;
+  }
+
+  ion-button {
+    margin-top: 20px;
+  }
+  ion-card-header,
+  ion-card-content {
+    background-color: #fff;
+    color: #000;
+  }
+}
+
+.container{
+  margin: 1%;
+}
+
+.saveBtn {
+  width: 50%;
+  max-width: 200px;
+  margin: 0 auto;
+}
