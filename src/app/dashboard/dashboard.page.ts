@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
@@ -10,8 +9,7 @@ import { Router } from '@angular/router';
 })
 export class DashboardPage implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) {
-  }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -22,6 +20,26 @@ export class DashboardPage implements OnInit {
 
   navigateToPreBook() {
     this.router.navigate(['/pre-book']);
+  }
+
+  navigateToChat() {
+    this.router.navigate(['/chat']);
+  }
+
+  navigateToActivity() {
+    this.router.navigate(['/activity']);
+  }
+
+  navigateToUserAccount() {
+    this.router.navigate(['/user-account']);
+  }
+
+  navigateToDriverInfo() {
+    this.router.navigate(['/driver-info']);
+  }
+
+  navigateToPaymentMatrix() {
+    this.router.navigate(['/payment-matrix']);
   }
 
   logout() {
