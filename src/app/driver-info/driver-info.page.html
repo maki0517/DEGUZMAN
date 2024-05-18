@@ -1,13 +1,25 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>driver-info</ion-title>
+    <ion-title>Driver Info</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">driver-info</ion-title>
+      <ion-title size="large">Driver Info</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-list>
+    <ion-item *ngFor="let driver of drivers">
+      <ion-label>
+        <h2>{{ driver.username }}</h2>
+        <p>Email: {{ driver.userEmail }}</p>
+        <p>Phone: {{ driver.phone }}</p>
+        <p>Car Type: {{ driver.carType }}</p>
+        <p>Available: {{ driver.isAvailable ? 'Yes' : 'No' }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
