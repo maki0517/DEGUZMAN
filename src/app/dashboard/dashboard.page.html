@@ -14,59 +14,9 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="container">
-    <form #coffeeForm="ngForm">
-      <ion-list>
-        <ion-item>
-          <ion-label position="floating">Coffee Name</ion-label>
-          <ion-input
-            type="text"
-            [(ngModel)]="coffeeName"
-            name="coffeeName"
-            required
-          ></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Coffee Add-Ons</ion-label>
-          <ion-input
-            type="text"
-            [(ngModel)]="coffeeAddOns"
-            name="coffeeAddOns"
-            required
-          ></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="floating">Coffee Price</ion-label>
-          <ion-input
-            type="number"
-            [(ngModel)]="coffeePrice"
-            name="coffeePrice"
-            required
-          ></ion-input>
-        </ion-item>
-        
-        <ion-button
-          expand="block"
-          (click)="saveCoffee()"
-          [disabled]="!coffeeForm.valid"
-          color="success"
-          class="saveBtn"
-        >
-          Save
-        </ion-button>
-      </ion-list>
-    </form>
-
-    <ion-list *ngIf="coffees.length > 0">
-      <ion-item *ngFor="let coffee of coffees">
-        <ion-label>{{ coffee.name }}</ion-label>
-        <ion-label>{{ coffee.addons }}</ion-label>
-        <ion-label>Php {{ coffee.price }}</ion-label>
-        <ion-button (click)="editCoffee(coffee)">Edit</ion-button>
-        <ion-button (click)="deleteCoffee(coffee)" color="danger">
-          Delete
-        </ion-button>
-      </ion-item>
-    </ion-list>
+  <div id="container">
+    <ion-button expand="block" (click)="navigateToCarType()">BOOK NOW</ion-button>
+    <ion-button expand="block" (click)="navigateToPreBook()">PRE-BOOK</ion-button>
   </div>
+  
 </ion-content>

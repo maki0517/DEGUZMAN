@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Pre-Book
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Time and Date</ion-label>
+    <ion-datetime display-format="h:mm A MMM DD" [(ngModel)]="selectedDateTime"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Available Drivers</ion-label>
+    <ion-select [(ngModel)]="selectedDriver">
+      <ion-select-option *ngFor="let driver of availableDrivers" [value]="driver">{{ driver }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-button (click)="confirm()">Confirm</ion-button>
+</ion-content>
