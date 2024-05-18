@@ -17,6 +17,7 @@ import { AuthService } from '../auth.service';
 export class DropOffLocationPage implements OnInit {
   selectedDateTime: string = '';
   selectedDriver: string = '';
+  selectedDriverEmail: string = '';
   pickUpLocation: string = '';
   dropOffLocation: string = '';
   recentBooks: string[] = [];
@@ -28,6 +29,7 @@ export class DropOffLocationPage implements OnInit {
   ngOnInit() {
     const state = history.state;
     this.selectedDateTime = state.selectedDateTime;
+    this.selectedDriverEmail = state.selectedDriverEmail;
     this.selectedDriver = state.selectedDriver;
     this.pickUpLocation = state.pickUpLocation;
 
@@ -77,6 +79,7 @@ export class DropOffLocationPage implements OnInit {
       state: {
         selectedDateTime: this.selectedDateTime,
         selectedDriver: this.selectedDriver,
+        selectedDriverEmail: this.selectedDriverEmail,
         pickUpLocation: this.pickUpLocation,
         dropOffLocation: this.dropOffLocation
       }

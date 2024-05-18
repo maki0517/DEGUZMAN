@@ -17,6 +17,7 @@ import {
 export class PickUpLocationPage implements OnInit {
   selectedDateTime: string = '';
   selectedDriver: string = '';
+  selectedDriverEmail: string = '';
   pickUpLocation: string = '';
   dropOffLocation: string = '';
   recentBooks: string[] = [];
@@ -29,7 +30,7 @@ export class PickUpLocationPage implements OnInit {
     const state = history.state;
     this.selectedDateTime = state.selectedDateTime;
     this.selectedDriver = state.selectedDriver;
-
+    this.selectedDriverEmail = state.selectedDriverEmail;
     this.loggedInUserEmail = localStorage.getItem('email') || '';
 
     this.fetchRecentBooks();
@@ -76,6 +77,7 @@ export class PickUpLocationPage implements OnInit {
       state: {
         selectedDateTime: this.selectedDateTime,
         selectedDriver: this.selectedDriver,
+        selectedDriverEmail: this.selectedDriverEmail,
         pickUpLocation: this.pickUpLocation,
         dropOffLocation: this.dropOffLocation
       }
