@@ -7,8 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from 'src/environments/environment';
 import { FormsModule } from '@angular/forms';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { initializeApp } from 'firebase/app';
 
 @NgModule({
   declarations: [AppComponent],

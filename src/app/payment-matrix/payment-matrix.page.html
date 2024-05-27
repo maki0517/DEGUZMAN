@@ -1,13 +1,21 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+    </ion-buttons>
     <ion-title>payment-matrix</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">payment-matrix</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-radio-group>
+        <ion-list-header>
+          <ion-label>Select Payment Method</ion-label>
+        </ion-list-header>
+      </ion-radio-group>
+    </ion-list>
+  
+    <!-- <ion-button expand="block" (click)="paymentMethods()">Select Payment Method</ion-button> -->
 </ion-content>
