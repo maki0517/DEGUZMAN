@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
 
 @Component({
   selector: 'app-payment-matrix',
@@ -13,35 +13,39 @@ export class PaymentMatrixPage implements OnInit {
   accountPhoneNumber: string = '';
   currentUserUid: string = '';
 
-  constructor(private firestore: AngularFirestore, private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.loadPaymentInformation();
   }
 
   async loadPaymentInformation() {
-    const user = await this.authService.getUser();
+    const user = this.authService.getUser();
     if (user) {
       this.currentUserUid = user.uid;
-      this.firestore.collection('paymentMethods').doc(this.currentUserUid).get()
-        .subscribe(doc => {
-          if (doc.exists) {
-            const paymentData: any = doc.data();
-            this.selectedPaymentMethod = paymentData.paymentMethod;
-            if (this.selectedPaymentMethod === 'GCash') {
-              this.accountName = paymentData.accountName;
-              this.accountPhoneNumber = paymentData.accountPhoneNumber;
-            }
-          }
-        });
+
+      const firestore = getFirestore();
+      const docRef = doc(firestore, 'paymentMethods', this.currentUserUid);
+      const docSnap = await getDoc(docRef);
+
+      if (docSnap.exists()) {
+        const paymentData = docSnap.data();
+        this.selectedPaymentMethod = paymentData['paymentMethod'];
+        if (this.selectedPaymentMethod === 'GCash') {
+          this.accountName = paymentData['accountName'];
+          this.accountPhoneNumber = paymentData['accountPhoneNumber'];
+        }
+      }
     }
   }
 
   async savePaymentMethod() {
     try {
-      const user = await this.authService.getUser();
+      const user = this.authService.getUser();
       if (user) {
         const uid = user.uid;
+
+        const firestore = getFirestore();
         const paymentData = {
           paymentMethod: this.selectedPaymentMethod,
           ...(this.selectedPaymentMethod === 'GCash' && {
@@ -51,7 +55,8 @@ export class PaymentMatrixPage implements OnInit {
           uid: uid
         };
 
-        await this.firestore.collection('paymentMethods').doc(uid).set(paymentData);
+        const docRef = doc(firestore, 'paymentMethods', uid);
+        await setDoc(docRef, paymentData);
         console.log('Payment method saved successfully!');
       } else {
         console.error('No user is logged in.');

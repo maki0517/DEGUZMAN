@@ -22,6 +22,10 @@ export class AdminPage implements OnInit {
 
   //admin-new page
 
+  logout() {
+    this.authService.logout();
+  }
+
   ionViewWillEnter() {
     this.address();
   }
