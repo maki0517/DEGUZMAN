@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+// import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Address } from './admin/admin.model';
 import { iAddress } from './admin/admin.model';
 import { addDoc, collection, getFirestore, getDocs, updateDoc, doc, deleteDoc } from "firebase/firestore"
@@ -13,6 +13,8 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
+  onAuthStateChanged, 
+  User
 } from 'firebase/auth';
 
 @Injectable({
@@ -21,14 +23,22 @@ import {
 export class AuthService {
   newAddressList: iAddress[] = [];
   addresses: Address = new Address();
+  currentUser: User | null = null;
   constructor(
     private router: Router,
     private alertController: AlertController,
-    private afAuth: AngularFireAuth,
-  ) {}
+  ) {
+    const firebaseConfig = environment.firebaseConfig;
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
 
-  getUser() {
-    return this.afAuth.currentUser;
+    onAuthStateChanged(auth, (user) => {
+      this.currentUser = user;
+    });
+  }
+
+  getUser(): User | null {
+    return this.currentUser;
   }
 
   setAuthentication(auth: boolean) {
