@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>update</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class = "book-container">
+    <h1>ADDRESS</h1>
+    <ion-item>
+      <ion-label position="floating">Title</ion-label>
+      <ion-input type="text" [(ngModel)]="addresses.title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Address</ion-label>
+      <ion-input type="text" [(ngModel)]="addresses.place"></ion-input>
+    </ion-item>
+  </div>
+    <ion-button color="success" (click)="updateAddress()">Update</ion-button>
+</ion-content>
+

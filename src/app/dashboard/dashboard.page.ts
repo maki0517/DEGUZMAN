@@ -42,6 +42,10 @@ export class DashboardPage implements OnInit {
     this.router.navigate(['/payment-matrix']);
   }
 
+  navigateToAdmin() {
+    this.router.navigate(['admin']);
+  }
+
   logout() {
     this.authService.logout();
   }

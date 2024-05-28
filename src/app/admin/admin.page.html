@@ -1,0 +1,21 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>admin</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-button expand="block" (click)="add()">CREATE</ion-button>
+
+  <div class="content-title" *ngFor="let addresses of addressList">
+    <div class="content">
+      <h3>Title: {{addresses.title}} </h3>
+      <h3>Address: {{addresses.place}} </h3>
+    </div>
+      <div class="btn">
+        <ion-button color="success" (click)="update(addresses)">UPDATE</ion-button>
+        <ion-button color="danger" (click)="delete(addresses)" *ngIf="addresses.id">DELETE</ion-button>
+    </div>
+</div>
+
+</ion-content>

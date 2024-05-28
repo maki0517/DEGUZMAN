@@ -81,6 +81,20 @@ const routes: Routes = [
     loadChildren: () => import('./user-account/user-account.module').then( m => m.UserAccountPageModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'create',
+    loadChildren: () => import('./create/create.module').then( m => m.CreatePageModule)
+  },
+  {
+    path: 'update',
+    loadChildren: () => import('./update/update.module').then( m => m.UpdatePageModule)
+  },
+
 
 ];
 

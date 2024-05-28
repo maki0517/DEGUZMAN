@@ -1,13 +1,21 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>chat</ion-title>
+    <ion-title>Chat</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">chat</ion-title>
+      <ion-title size="large">Chat</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="chat-container">
+    <div class="messages" *ngFor="let message of messages">
+      <div class="message" [ngClass]="{'sent': message.sent, 'received': !message.sent}">
+        {{ message.text }}
+      </div>
+    </div>
+  </div>
 </ion-content>
