@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 import {
   getAuth,
@@ -16,13 +15,8 @@ import {
 export class AuthService {
   constructor(
     private router: Router,
-    private alertController: AlertController,
-    private afAuth: AngularFireAuth,
+    private alertController: AlertController
   ) {}
-
-  getUser() {
-    return this.afAuth.currentUser;
-  }
 
   setAuthentication(auth: boolean) {
     if (auth) {
