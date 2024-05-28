@@ -38,7 +38,8 @@ export class AuthService {
   }
 
   getUser(): User | null {
-    return this.currentUser;
+    const auth = getAuth();
+    return auth.currentUser;
   }
 
   setAuthentication(auth: boolean) {
@@ -91,6 +92,8 @@ export class AuthService {
   
         if (email === 'onlyadmin@email.com' && password === 'adminOnly') {
           // Admin acc
+          localStorage.setItem('email', email);
+          localStorage.setItem('password', password);
           this.setAuthentication(true);
           this.presentAlert('Success', 'Admin sign in successful');
           this.router.navigate(['/admin']);
