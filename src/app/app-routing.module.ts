@@ -80,7 +80,11 @@ const routes: Routes = [
     path: 'user-account',
     loadChildren: () => import('./user-account/user-account.module').then( m => m.UserAccountPageModule),
     canActivate: [AuthGuard]
+  },  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
   },
+
 
 ];
 
