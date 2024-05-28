@@ -20,7 +20,7 @@ export class UpdatePage implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.synch(this.authService.newAddressList);
   }
-
+  //update-new page
   async updateAddress() {
     if (this.validate()) {
       let loader = await this.loadController.create({

@@ -20,6 +20,8 @@ export class AdminPage implements OnInit {
   ngOnInit() {
   }
 
+  //admin-new page
+
   ionViewWillEnter() {
     this.address();
   }

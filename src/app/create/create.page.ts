@@ -19,6 +19,7 @@ export class CreatePage implements OnInit {
   ngOnInit() {
   }
 
+  //create-new page
   async addAddress() {
     if (this.validate()) {
       let loader = await this.loadController.create({
