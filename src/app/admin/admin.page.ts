@@ -39,6 +39,7 @@ export class AdminPage{
       this.isLoading = true;
       const db = getFirestore();
       const querySnapshot = await getDocs(collection(db, 'address'));
+      this.addressList = [];
       querySnapshot.forEach((doc) => {
         const addressData = doc.data();
         const address: iAddress = {
@@ -93,7 +94,7 @@ export class AdminPage{
         this.isLoading = true;
         await this.authService.tryDelete(address);
         this.authService.presentAlert('Delete', 'Address Deleted');
-        this.address();
+        await this.fetchAddresses();
         this.addresses = new Address();
         this.isLoading = false;
     } else {

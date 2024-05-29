@@ -172,7 +172,7 @@ export class AuthService {
     const firestore = getFirestore(app);
 
     try {
-      const docRef = doc(firestore, "addresses", address.id);
+      const docRef = doc(firestore, "address", address.id);
       await updateDoc(docRef, {title: address.title, place: address.place});
     } catch(e) {
       console.error("Error update document: ", e);
@@ -184,7 +184,7 @@ export class AuthService {
     const firestore = getFirestore(app);
 
     try {
-      const docRef = doc(firestore, "addresses", address.id)
+      const docRef = doc(firestore, "address", address.id)
       await deleteDoc(docRef);
     } catch (e) {
       console.error("Delete error: ", e);
