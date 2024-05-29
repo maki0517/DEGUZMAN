@@ -10,15 +10,26 @@
 <ion-content [fullscreen]="true">
   <ion-button expand="block" (click)="add()">CREATE</ion-button>
 
-  <div class="content-title" *ngFor="let addresses of addressList">
-    <div class="content">
-      <h3>Title: {{addresses.title}} </h3>
-      <h3>Address: {{addresses.place}} </h3>
-    </div>
-      <div class="btn">
-        <ion-button color="success" (click)="update(addresses)">UPDATE</ion-button>
-        <ion-button color="danger" (click)="delete(addresses)" *ngIf="addresses.id">DELETE</ion-button>
-    </div>
-</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Place</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let address of addressList">
+      <td>{{address.title}}</td>
+      <td>{{address.place}}</td>
+      <td>
+        <div class="btn">
+          <ion-button color="success" (click)="update(address)">UPDATE</ion-button>
+          <ion-button color="danger" (click)="delete(address)" *ngIf="address.id">DELETE</ion-button>
+      </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 </ion-content>

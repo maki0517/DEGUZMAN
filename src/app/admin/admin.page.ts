@@ -4,6 +4,17 @@ import { iAddress } from '../admin/admin.model';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { LoadingController } from '@ionic/angular';
+import { initializeApp } from 'firebase/app';
+import { environment } from 'src/environments/environment';
+import {
+  doc,
+  getFirestore,
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  getDocs,
+} from 'firebase/firestore';
 
 @Component({
   selector: 'app-admin',
@@ -18,6 +29,24 @@ export class AdminPage implements OnInit {
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
+    this.fetchAddresses();
+  }
+
+  async fetchAddresses() {
+    const app = initializeApp(environment.firebaseConfig);
+    const db = getFirestore(app);
+
+    try {
+      const querySnapshot = await getDocs(collection(db, 'address'));
+      const fetchedAddresses = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        title: doc.data()['title'],
+        place: doc.data()['place']
+      }));
+      this.addressList = fetchedAddresses;
+    } catch (error) {
+      console.error('Error fetching address:', error);
+    }
   }
 
   //admin-new page

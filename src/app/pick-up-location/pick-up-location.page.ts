@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { iAddress, Address } from '../admin/admin.model';
 import {
   getFirestore,
   collection,
@@ -22,6 +23,10 @@ export class PickUpLocationPage implements OnInit {
   recentBooks: string[] = [];
   savedAddresses: string[] = [];
   loggedInUserEmail: string = '';
+
+  query: string = '';
+  places: any[] = [];
+  addressList: iAddress[] = [];
 
   constructor(private router: Router,private authService: AuthService,) { }
 
@@ -82,4 +87,32 @@ export class PickUpLocationPage implements OnInit {
     });
   }
 
+  async searchAddress() {
+    if (this.query === '') {
+      this.places = [];
+      return;
+    }
+    /*try {
+      const autoCompleteItems = addresses.filter(address =>
+        address.address.toLowerCase().includes(this.query.toLowerCase()) ||
+        address.title.toLowerCase().includes(this.query.toLowerCase())
+      ).map(address => ({
+        title: address.title,
+        address: address.address
+      }));
+  
+      this.places = autoCompleteItems;
+      console.log(this.places);
+    } catch (error) {
+      console.error(error);
+    }
+  */
+  }
+
+  choosePlace(place: any) {
+    this.addressList = place;
+    this.query = place.address;
+    this.places = [];
+    console.log(this.query);
+}
 }
