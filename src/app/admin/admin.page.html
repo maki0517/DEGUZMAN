@@ -7,9 +7,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" *ngIf="!isLoading">
   <ion-button expand="block" (click)="add()">CREATE</ion-button>
-
 
 <table>
   <thead>

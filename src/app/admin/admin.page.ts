@@ -21,42 +21,42 @@ import {
   templateUrl: './admin.page.html',
   styleUrls: ['./admin.page.scss'],
 })
-export class AdminPage implements OnInit {
+export class AdminPage{
   addresses: Address = new Address();
   addressList: iAddress[] = [];
   isLoading: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.fetchAddresses();
-  }
-
-  async fetchAddresses() {
-    const app = initializeApp(environment.firebaseConfig);
-    const db = getFirestore(app);
-
-    try {
-      const querySnapshot = await getDocs(collection(db, 'address'));
-      const fetchedAddresses = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        title: doc.data()['title'],
-        place: doc.data()['place']
-      }));
-      this.addressList = fetchedAddresses;
-    } catch (error) {
-      console.error('Error fetching address:', error);
-    }
   }
 
   //admin-new page
 
-  logout() {
-    this.authService.logout();
+  async fetchAddresses() {
+    try {
+      this.isLoading = true;
+      const db = getFirestore();
+      const querySnapshot = await getDocs(collection(db, 'address'));
+      querySnapshot.forEach((doc) => {
+        const addressData = doc.data();
+        const address: iAddress = {
+          id: doc.id,
+          title: addressData['title'],
+          place: addressData['place'],
+        };
+        this.addressList.push(address);
+      });
+    } catch (error) {
+      console.error('Error fetching addresses:', error);
+    } finally {
+      this.isLoading = false;
+    }
   }
 
-  ionViewWillEnter() {
-    this.address();
+  logout() {
+    this.authService.logout();
   }
 
   signOut() {
