@@ -1,39 +1,53 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>drop-off-location</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="pick-up-location"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Select your Drop-off Location</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar 
+      animated="true" 
+      debounce="800" 
+      placeholder="Search your Drop-off Location" 
+      (ionInput)="searchAddress()"
+      [(ngModel)]="query">
+    </ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-list *ngIf="places.length > 0"> 
+    <ion-item *ngFor="let place of places" tappable>
+      <ion-icon name="location-outline" slot="start"></ion-icon>
+      <ion-label>
+        <h2>{{ place.title }}</h2> 
+        <p>{{ place.address }}</p>
+      </ion-label>
+      <ion-icon name="{{ isBookmarked(place) ? 'bookmark' : 'bookmark-outline' }}" (click)="selectAddress(place)"></ion-icon>
+    </ion-item>
+  </ion-list>
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">drop-off-location</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-item>
-    <ion-label position="floating">Drop-off Location</ion-label>
-    <ion-input type="text" [(ngModel)]="dropOffLocation"></ion-input>
-  </ion-item>
-
-  <ion-list>
-    <ion-list-header>
-      Recent Complete Books
-    </ion-list-header>
-    <ion-item *ngFor="let book of recentBooks" (click)="selectAddress(book)">
+  <div class = "container">
+    <h4>Recent Complete Books</h4>
+      <ion-item *ngFor="let book of recentBooks">
       {{ book }}
     </ion-item>
-  </ion-list>
+  </div>
 
-  <ion-list>
-    <ion-list-header>
-      Saved Addresses
-    </ion-list-header>
-    <ion-item *ngFor="let address of savedAddresses" (click)="selectAddress(address)">
-      {{ address }}
+  <div class="container">
+    <h4>Saved Addresses</h4>
+    <ion-item *ngFor="let address of savedAddresses">
+      <ion-label>{{ address.title }}</ion-label>
+      <p>{{ address.place }}</p>
     </ion-item>
-  </ion-list>
+  </div>
 
   <ion-button expand="block" (click)="confirm()">Proceed</ion-button>
-  
+
 </ion-content>

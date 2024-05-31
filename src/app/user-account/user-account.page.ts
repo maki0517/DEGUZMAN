@@ -9,11 +9,12 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./user-account.page.scss'],
 })
 export class UserAccountPage implements OnInit {
-  user: any = null;
+  user: any = {};
   isEditing: boolean = false;
   userEmail: string = '';
   username: string = '';
   phone: string = '';
+  carType: string = '';
 
   constructor() {}
 
@@ -27,15 +28,15 @@ export class UserAccountPage implements OnInit {
     const emailFromLocalStorage = localStorage.getItem('email');
 
     if (emailFromLocalStorage) {
-      const q = query(collection(db, 'users'), where('userEmail', '==', emailFromLocalStorage));
+      const q = query(collection(db, 'users'), where('email', '==', emailFromLocalStorage));
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
         const userData = querySnapshot.docs[0].data();
         this.user = userData;
-        this.userEmail = userData['userEmail'];
+        this.userEmail = userData['email'];
         this.username = userData['username'];
-        this.phone = userData['phone'];
+        this.phone = userData['phNo'];
       } else {
         console.error('No user found in Firestore for the provided email');
       }
@@ -54,7 +55,7 @@ export class UserAccountPage implements OnInit {
     const emailFromLocalStorage = localStorage.getItem('email');
   
     if (emailFromLocalStorage) {
-      const q = query(collection(db, 'users'), where('userEmail', '==', emailFromLocalStorage));
+      const q = query(collection(db, 'users'), where('email', '==', emailFromLocalStorage));
       const querySnapshot = await getDocs(q);
   
       if (!querySnapshot.empty) {

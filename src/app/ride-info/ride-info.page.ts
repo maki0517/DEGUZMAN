@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class RideInfoPage implements OnInit {
   selectedDateTime: string = '';
   selectedDriver: string = '';
+  selectedDriverEmail: string = '';
   pickUpLocation: string = '';
   dropOffLocation: string = '';
 
@@ -18,6 +19,7 @@ export class RideInfoPage implements OnInit {
     const state = history.state;
     this.selectedDateTime = state.selectedDateTime;
     this.selectedDriver = state.selectedDriver;
+    this.selectedDriverEmail = state.selectedDriverEmail;
     this.pickUpLocation = state.pickUpLocation;
     this.dropOffLocation = state.dropOffLocation;
   }
@@ -27,6 +29,7 @@ export class RideInfoPage implements OnInit {
       state: {
         selectedDateTime: this.selectedDateTime,
         selectedDriver: this.selectedDriver,
+        selectedDriverEmail: this.selectedDriverEmail,
         pickUpLocation: this.pickUpLocation,
         dropOffLocation: this.dropOffLocation
       }

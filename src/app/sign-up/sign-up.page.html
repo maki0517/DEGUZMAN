@@ -4,8 +4,35 @@
       Register
     </h1>
     <ion-item>
+      <ion-label position="floating">User Type</ion-label>
+      <ion-select [(ngModel)]="userType">
+        <ion-select-option value="passenger">Passenger</ion-select-option>
+        <ion-select-option value="driver">Driver</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngIf="userType === 'driver'">
+      <ion-label position="floating">Car Type</ion-label>
+      <ion-select [(ngModel)]="carType">
+        <ion-select-option value="2-seaters">2-seaters</ion-select-option>
+        <ion-select-option value="4-seaters">4-seaters</ion-select-option>
+        <ion-select-option value="6-seaters">6-seaters</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
       <ion-label position="floating">Email</ion-label>
       <ion-input type="email" [(ngModel)]="email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Username</ion-label>
+      <ion-input type="text" [(ngModel)]="username"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input type="tel" [(ngModel)]="phoneNumber"></ion-input>
     </ion-item>
 
     <ion-item>

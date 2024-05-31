@@ -1,0 +1,27 @@
+ion-content {
+    --background: #ffffff;
+}
+
+ion-toolbar {
+    --background: #004182;
+}
+
+ion-button {
+    margin-top: 33rem;
+}
+
+ion-searchbar {
+    --border-radius: 20px; 
+    --background: #fcf9f9;
+    color: black;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.container h4 {
+    font-size: 15px;
+    color:#004182;
+}

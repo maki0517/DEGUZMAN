@@ -16,9 +16,15 @@
   </ion-item>
 
   <ion-item>
+    <ion-select placeholder="Select Car" [(ngModel)]="selectedCarType" (ionChange)="selectCarType()">
+      <ion-select-option *ngFor="let carType of carOptions" [value]="carType">{{ carType }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
     <ion-label>Available Drivers</ion-label>
     <ion-select [(ngModel)]="selectedDriver">
-      <ion-select-option *ngFor="let driver of availableDrivers" [value]="driver">{{ driver }}</ion-select-option>
+      <ion-select-option *ngFor="let driver of availableDrivers" [value]="driver.username">{{ driver.username }}</ion-select-option>
     </ion-select>
   </ion-item>
 

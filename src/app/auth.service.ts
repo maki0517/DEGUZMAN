@@ -16,6 +16,7 @@ import {
   onAuthStateChanged, 
   User
 } from 'firebase/auth';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +25,9 @@ export class AuthService {
   newAddressList: iAddress[] = [];
   addresses: Address = new Address();
   currentUser: User | null = null;
+  private carType = new BehaviorSubject<string[]>([]);
+  currentCarType = this.carType.asObservable();
+
   constructor(
     private router: Router,
     private alertController: AlertController,
@@ -56,7 +60,7 @@ export class AuthService {
     return false;
   }
 
-  async signUp(email: string, password: string, retypePassword: string) {
+  async signUp(email: string, password: string, retypePassword: string, userType: string, phNo: string, carType: string, username: string) {
     if (!email || !password || !retypePassword) {
       this.presentAlert('Error', 'Please fill in all fields.');
       return;
@@ -66,22 +70,38 @@ export class AuthService {
       this.presentAlert('Error', 'Password do not match');
       return;
     }
-
+  
     const auth = getAuth();
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+  
+      const firestore = getFirestore();
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        this.presentAlert('Success', 'Sign up successfull');
-        this.router.navigate(['/login']);
-      })
-
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        this.presentAlert('Registration Failed', errorMessage)
-        console.error(error);
-      });
+      if(userType == 'driver'){
+        await addDoc(collection(firestore, 'users'), {
+          uid: user.uid,
+          email,
+          username,
+          userType,
+          phNo,
+          carType,
+          available: true 
+        });
+      } else {
+        await addDoc(collection(firestore, 'users'), {
+          uid: user.uid,
+          email,
+          username,
+          userType,
+          phNo,
+        });
+      }
+  
+      this.presentAlert('Success', 'Sign up successful');
+      this.router.navigate(['/login']);
+    } catch (error) {
+    }
   }
 
   async login(email: string, password: string) {
@@ -189,6 +209,10 @@ export class AuthService {
     } catch (e) {
       console.error("Delete error: ", e);
     }
+  }
+
+  changeCarType(type: string[]) {
+    this.carType.next(type);
   }
 
 }

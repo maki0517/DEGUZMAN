@@ -1,19 +1,19 @@
 export interface iCar {
     id: string;
     type: string[];
-    isAvailable: boolean;
+    available: boolean;
 
 }
 
 export class Car {
     id: string;
     type: string[] = [];
-    isAvailable: boolean = false;
+    available: boolean = false;
     
-        constructor(id: string = '', type: string[] = [], isAvailable: boolean = false) {
+        constructor(id: string = '', type: string[] = [], available: boolean = false) {
             this.id = id;
             this.type = type;
-            this.isAvailable = isAvailable;
+            this.available = available;
             
         }
 }
