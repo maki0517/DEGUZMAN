@@ -1,5 +1,5 @@
 ion-content {
-  --background: linear-gradient(to bottom right, #fd8fc6, #ef49a2);
+  --background: white;;
 
   ion-item {
     --padding-start: 10px;
@@ -9,7 +9,11 @@ ion-content {
 
   ion-button {
     margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+  
   ion-card-header,
   ion-card-content {
     background-color: #fff;
@@ -26,3 +30,15 @@ ion-content {
   max-width: 200px;
   margin: 0 auto;
 }
+
+ion-toolbar {
+  display: flex;
+  justify-content: center;
+  --background: #004182;
+  height: 10rem;
+}
+
+ion-title {
+  text-align: center;
+}
+

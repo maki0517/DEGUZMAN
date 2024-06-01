@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, query, where, getDocs, updateDoc } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-user-account',
@@ -9,13 +10,14 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./user-account.page.scss'],
 })
 export class UserAccountPage implements OnInit {
-  user: any = null;
+  user: any = {};
   isEditing: boolean = false;
   userEmail: string = '';
   username: string = '';
   phone: string = '';
+  carType: string = '';
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
     this.fetchUserDetails();
@@ -27,15 +29,16 @@ export class UserAccountPage implements OnInit {
     const emailFromLocalStorage = localStorage.getItem('email');
 
     if (emailFromLocalStorage) {
-      const q = query(collection(db, 'users'), where('userEmail', '==', emailFromLocalStorage));
+      const q = query(collection(db, 'users'), where('email', '==', emailFromLocalStorage));
       const querySnapshot = await getDocs(q);
 
       if (!querySnapshot.empty) {
         const userData = querySnapshot.docs[0].data();
         this.user = userData;
-        this.userEmail = userData['userEmail'];
+        this.userEmail = userData['email'];
         this.username = userData['username'];
-        this.phone = userData['phone'];
+        this.phone = userData['phNo'];
+        this.carType = userData['carType'];
       } else {
         console.error('No user found in Firestore for the provided email');
       }
@@ -54,7 +57,7 @@ export class UserAccountPage implements OnInit {
     const emailFromLocalStorage = localStorage.getItem('email');
   
     if (emailFromLocalStorage) {
-      const q = query(collection(db, 'users'), where('userEmail', '==', emailFromLocalStorage));
+      const q = query(collection(db, 'users'), where('email', '==', emailFromLocalStorage));
       const querySnapshot = await getDocs(q);
   
       if (!querySnapshot.empty) {
@@ -72,5 +75,9 @@ export class UserAccountPage implements OnInit {
     } else {
       console.error('No email found in local storage');
     }
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }

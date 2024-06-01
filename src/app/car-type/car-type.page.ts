@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { LoadingController } from '@ionic/angular';
+import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
 
 @Component({
   selector: 'app-car-type',
@@ -13,15 +14,42 @@ import { LoadingController } from '@ionic/angular';
 export class CarTypePage implements OnInit {
   car: Car = new Car();
   carType: string[] = ['2-seaters', '4-seaters', '6-seaters'];
-  constructor(private router: Router, private alertController: AlertController, private authService: AuthService, private loadController: LoadingController) { }
+  availableDrivers: { username: string, userEmail: string }[] = [];
+
+  constructor(
+    private router: Router,
+    private alertController: AlertController,
+    private authService: AuthService,
+    private loadController: LoadingController
+  ) {}
 
   ngOnInit() {
     console.log(this.car.type);
   }
 
+  async fetchAvailableDrivers() {
+    const db = getFirestore();
+    const usersRef = collection(db, 'users');
+    const q = query(
+      usersRef,
+      where('userType', '==', 'driver'),
+      where('available', '==', true),
+      where('carType', '==', this.car.type)
+    );
+
+    try {
+      const querySnapshot = await getDocs(q);
+      this.availableDrivers = querySnapshot.docs.map(doc => ({
+        username: doc.data()['username'],
+        userEmail: doc.data()['email']
+      }));
+    } catch (error) {
+      console.error('Error fetching available drivers:', error);
+    }
+  }
+
   async confirm() {
     if (!this.car.type) {
-      // Present an alert if car.type is empty or null
       const alert = await this.alertController.create({
         header: 'Error',
         message: 'Please select a car type',
@@ -29,13 +57,31 @@ export class CarTypePage implements OnInit {
       });
       await alert.present();
       return;
-    } else {
-      this.router.navigate(['pick-up-loc']);
     }
 
-    // Log the selected car type for debugging purposes
-    console.log(this.car.type);
-  }
+    await this.fetchAvailableDrivers();
 
-  // kaklase ko po gumawa nito, bale ang function po nito is kapag hindi po nakapili si user ng car type tapos nag-confirm siya, hindi niya po ma-access next page
+    if (this.availableDrivers.length === 0) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'No available drivers for the selected car type',
+        buttons: ['OK']
+      });
+      await alert.present();
+      return;
+    }
+
+    const selectedDriver = this.availableDrivers[Math.floor(Math.random() * this.availableDrivers.length)];
+
+    console.log(this.car.type);
+    console.log(selectedDriver);
+
+    this.router.navigate(['/pick-up-location'], {
+      state: {
+        selectedCarType: this.car.type,
+        selectedDriver: selectedDriver.username,
+        selectedDriverEmail: selectedDriver.userEmail
+      }
+    });
+  }
 }

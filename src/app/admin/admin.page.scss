@@ -11,11 +11,14 @@ table {
     color:#2c2a2a;
   }
   
-  th {
-    background-color: #EABE6C;
-  }
-  
   tr:hover {
     background-color: #FFEDD8;
   }
   
+  ion-content {
+    --background: #ffffff;
+}
+
+ion-toolbar {
+    --background: #004182;   
+}

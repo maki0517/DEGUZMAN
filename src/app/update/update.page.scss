@@ -1,0 +1,27 @@
+ion-content {
+    --background: #ffffff;
+}
+
+ion-toolbar {
+    --background: #004182;   
+}
+
+.book-container {
+    max-width: 400px; 
+    margin: auto;
+  }
+  
+  .book-container h1 {
+    text-align: center; 
+  }
+  
+  ion-item {
+    margin-bottom: 15px;
+  }
+  
+  ion-button {
+    display: block; 
+    margin: auto; 
+    width: 150px;
+    margin-top: 20px; 
+  }

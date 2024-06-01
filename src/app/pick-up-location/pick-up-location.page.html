@@ -1,6 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>pick-up-location</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="car-type"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Select your Pick-Up Location</ion-title>
   </ion-toolbar>
   <ion-toolbar>
     <ion-searchbar 
@@ -18,9 +21,10 @@
     <ion-item *ngFor="let place of places" tappable (click)="choosePlace(place)">
       <ion-icon name="location-outline" slot="start"></ion-icon>
       <ion-label>
-        <h2>{{ place.title }}</h2>
+        <h2>{{ place.title }}</h2> 
         <p>{{ place.address }}</p>
       </ion-label>
+      <ion-icon name="{{ isBookmarked(place) ? 'bookmark' : 'bookmark-outline' }}" (click)="selectAddress(place)"></ion-icon>
     </ion-item>
   </ion-list>
   <ion-header collapse="condense">
@@ -29,28 +33,21 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-item>
-    <ion-label position="floating">Pick-up Location</ion-label>
-    <ion-input type="text" [(ngModel)]="pickUpLocation"></ion-input>
-  </ion-item>
-
-  <ion-list>
-    <ion-list-header>
-      Recent Complete Books
-    </ion-list-header>
-    <ion-item *ngFor="let book of recentBooks" (click)="selectAddress(book)">
+  <div class = "container">
+    <h4>Recent Complete Books</h4>
+      <ion-item *ngFor="let book of recentBooks">
       {{ book }}
     </ion-item>
-  </ion-list>
+  </div>
 
-  <ion-list>
-    <ion-list-header>
-      Saved Addresses
-    </ion-list-header>
-    <ion-item *ngFor="let address of savedAddresses" (click)="selectAddress(address)">
-      {{ address }}
-    </ion-item>
-  </ion-list>
+  <div class="container">
+    <h4>Saved Addresses</h4>
+    <div *ngFor="let address of savedAddresses">
+      <h3>{{ address.title }}</h3>
+      <p>{{ address.place }}</p>
+    </div>
+  </div>
+
 
   <ion-button expand="block" (click)="confirm()">Proceed</ion-button>
 

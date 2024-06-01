@@ -1,18 +1,10 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/dashboard"></ion-back-button>
-    </ion-buttons>
     <ion-title>Activity</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Activity</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
   <ion-list>
     <ion-item *ngFor="let book of books">

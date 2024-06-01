@@ -1,0 +1,29 @@
+ion-content {
+    --background: #ffffff;
+}
+
+ion-toolbar {
+    --background: #004182;   
+}
+
+ion-button {
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+  
+.box {
+    width: 300px;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 20px;
+    color: black;
+}

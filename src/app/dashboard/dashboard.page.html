@@ -1,28 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Dashboard</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="logout()">Logout</ion-button>
-    </ion-buttons>
+    <ion-title>Welcome To Vroom!</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Dashboard</ion-title>
-    </ion-toolbar>
-  </ion-header>
 
   <div id="container">
     <ion-button expand="block" (click)="navigateToCarType()">BOOK NOW</ion-button>
     <ion-button expand="block" (click)="navigateToPreBook()">PRE-BOOK</ion-button>
-    <ion-button expand="block" (click)="navigateToChat()">Chat</ion-button>
-    <ion-button expand="block" (click)="navigateToActivity()">Activity</ion-button>
-    <ion-button expand="block" (click)="navigateToUserAccount()">User Account</ion-button>
-    <ion-button expand="block" (click)="navigateToDriverInfo()">Driver Info</ion-button>
-    <ion-button expand="block" (click)="navigateToPaymentMatrix()">Payment Matrix</ion-button>
-    <ion-button expand="block" (click)="navigateToAdmin()">ADDRESS</ion-button>
   </div>
   
 </ion-content>

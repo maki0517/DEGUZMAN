@@ -21,30 +21,7 @@ export class DashboardPage implements OnInit {
   navigateToPreBook() {
     this.router.navigate(['/pre-book']);
   }
-
-  navigateToChat() {
-    this.router.navigate(['/chat']);
-  }
-
-  navigateToActivity() {
-    this.router.navigate(['/activity']);
-  }
-
-  navigateToUserAccount() {
-    this.router.navigate(['/user-account']);
-  }
-
-  navigateToDriverInfo() {
-    this.router.navigate(['/driver-info']);
-  }
-
-  navigateToPaymentMatrix() {
-    this.router.navigate(['/payment-matrix']);
-  }
-
-  navigateToAdmin() {
-    this.router.navigate(['admin']);
-  }
+  
 
   logout() {
     this.authService.logout();

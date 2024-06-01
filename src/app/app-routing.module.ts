@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth.guard';
+import { TabsComponent } from './tabs/tabs.component';
 
 const routes: Routes = [
   // {
@@ -22,23 +23,8 @@ const routes: Routes = [
     loadChildren: () => import('./sign-up/sign-up.module').then( m => m.SignUpPageModule)
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'activity',
-    loadChildren: () => import('./activity/activity.module').then( m => m.ActivityPageModule),
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'car-type',
     loadChildren: () => import('./car-type/car-type.module').then( m => m.CarTypePageModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'chat',
-    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule),
     canActivate: [AuthGuard]
   },
   {
@@ -77,23 +63,53 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'user-account',
-    loadChildren: () => import('./user-account/user-account.module').then( m => m.UserAccountPageModule),
-    canActivate: [AuthGuard]
-  },
-  {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule),
     canActivate: [AuthGuard]
   },
   {
     path: 'create',
-    loadChildren: () => import('./create/create.module').then( m => m.CreatePageModule)
+    loadChildren: () => import('./create/create.module').then( m => m.CreatePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'update/:id',
-    loadChildren: () => import('./update/update.module').then( m => m.UpdatePageModule)
+    loadChildren: () => import('./update/update.module').then( m => m.UpdatePageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'tabs',
+    component: TabsComponent,
+    children: [
+      {
+        path: 'dashboard',
+        loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'activity',
+        loadChildren: () => import('./activity/activity.module').then( m => m.ActivityPageModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'chat',
+        loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule),
+        canActivate: [AuthGuard]
+      },
+      {
+        path: 'user-account',
+        loadChildren: () => import('./user-account/user-account.module').then( m => m.UserAccountPageModule),
+        canActivate: [AuthGuard]
+      }
+    ]
+  },
+  {
+    path: 'drivers',
+    loadChildren: () => import('./drivers/drivers.module').then( m => m.DriversPageModule),
+    canActivate: [AuthGuard]
   }
+
+
 
 
 ];

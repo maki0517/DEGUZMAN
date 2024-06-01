@@ -1,0 +1,14 @@
+<ion-content>
+  <div class="driver-info" *ngIf="driverData">
+    <h1>Welcome, {{ driverData.username }}</h1>
+    <p>Email: {{ driverData.email }}</p>
+    <p>Phone Number: {{ driverData.phNo }}</p>
+    <p>User Type: {{ driverData.userType }}</p>
+    <div *ngIf="driverData.userType === 'driver'">
+      <p>Available: {{ driverData.available ? 'Yes' : 'No' }}</p>
+      <p>Car Type: {{ driverData.carType }}</p>
+    </div>
+  </div>
+
+  <ion-button color="success" style="width: 200px;" (click)="logOut()">LOG OUT</ion-button>
+</ion-content>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { getFirestore, doc, getDoc, setDoc } from 'firebase/firestore';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment-matrix',
@@ -13,7 +14,7 @@ export class PaymentMatrixPage implements OnInit {
   accountPhoneNumber: string = '';
   currentUserUid: string = '';
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.loadPaymentInformation();
@@ -58,6 +59,7 @@ export class PaymentMatrixPage implements OnInit {
         const docRef = doc(firestore, 'paymentMethods', uid);
         await setDoc(docRef, paymentData);
         console.log('Payment method saved successfully!');
+        this.router.navigate(['/ride-info']);
       } else {
         console.error('No user is logged in.');
       }
