@@ -21,6 +21,7 @@ export class CompleteInfoPage {
   loggedInUserEmail: string = '';
   addressList: iAddress[] = [];
   selectedPaymentMethod: string = '';
+  isLoading: boolean = false;
 
   constructor(private router: Router) { }
 
@@ -78,6 +79,28 @@ export class CompleteInfoPage {
     }
   }
 
+  async fetchAddresses() {
+    try {
+      this.isLoading = true;
+      const db = getFirestore();
+      const querySnapshot = await getDocs(collection(db, 'address'));
+      this.addressList = [];
+      querySnapshot.forEach((doc) => {
+        const addressData = doc.data();
+        const address: iAddress = {
+          id: doc.id,
+          title: addressData['title'],
+          place: addressData['place']
+        };
+        this.addressList.push(address);
+      });
+    } catch (error) {
+      console.error('Error fetching addresses:', error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
   async confirmBooking() {
     const db = getFirestore();
     const bookingsRef = collection(db, 'books');
@@ -87,16 +110,13 @@ export class CompleteInfoPage {
 
     try {
       await addDoc(bookingsRef, {
-        'client-email': this.loggedInUserEmail,
-        'client-name': this.username,
-        'client-phone': this.usernumber,
-        'driver-email': this.selectedDriverEmail,
-        'driver-name': this.drivername,
-        'driver-phone': this.drivernumber,
-        'drop-off-location': this.dropOffLocation,
-        'pick-up-location': this.pickUpLocation,
+        'email': this.selectedDriverEmail,
+        'username': this.drivername,
+        'phNo': this.drivernumber,
+        'dropOffLocation': this.dropOffLocation ? this.dropOffLocation : null, 
+        'pickUpLocation': this.pickUpLocation ? this.pickUpLocation : null,
+        'paymentMethod': this.selectedPaymentMethod,
         'time-date': this.selectedDateTime,
-        'payment-method': this.selectedPaymentMethod
       });
       console.log('Booking information saved to Firestore');
 
@@ -114,6 +134,6 @@ export class CompleteInfoPage {
       console.error('Error saving booking information:', error);
     }
 
-    this.router.navigate(['activity']);
+    this.router.navigate(['tabs/activity']);
   }
 }

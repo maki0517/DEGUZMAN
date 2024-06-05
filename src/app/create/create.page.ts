@@ -21,7 +21,7 @@ export class CreatePage implements OnInit {
 
   //create-new page
   async addAddress() {
-    if (this.validate()) {
+    if (this.validateAddress()) {
       let loader = await this.loadController.create({
         message: "Please wait..."
       });
@@ -36,7 +36,7 @@ export class CreatePage implements OnInit {
     }
   }
 
-  validate() {
+  validateAddress() {
     if (!this.addresses.title || !this.addresses.place) {
       this.authService.presentAlert('Sorry', 'Please fill all blank');
       return false;

@@ -1,34 +1,22 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>ADMIN</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="logout()">Logout</ion-button>
+      <ion-button (click)="signOut()">Logout</ion-button>
     </ion-buttons>
+    <ion-title>Admin</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" *ngIf="!isLoading">
-  <ion-button expand="block" (click)="add()">CREATE</ion-button>
+<ion-content>
+  
+  <ion-button expand='block' (click)="manageAddress()">MANAGE ADDRESS</ion-button>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Place</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let address of addressList">
-      <td>{{address.title}}</td>
-      <td>{{address.place}}</td>
-      <td>
-        <div class="btn">
-          <ion-button color="success" (click)="update(address)">UPDATE</ion-button>
-          <ion-button color="danger" (click)="delete(address)" *ngIf="address.id">DELETE</ion-button>
-      </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
 
+    <ion-button expand='block' (click)="seeDrivers()">DRIVERS</ion-button>
+
+
+
+    <ion-button expand='block' (click)="seeUsers()">USERS</ion-button>
+
+  
 </ion-content>

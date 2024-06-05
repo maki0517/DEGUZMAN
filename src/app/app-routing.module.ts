@@ -15,6 +15,10 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'emergency-update',
+    loadChildren: () => import('./emergency-update/emergency-update.module').then( m => m.EmergencyUpdatePageModule)
+  },
+  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   },
@@ -103,12 +107,46 @@ const routes: Routes = [
       }
     ]
   },
+      {
+        path: 'drivers',
+        loadChildren: () => import('./drivers/drivers.module').then( m => m.DriversPageModule),
+        canActivate: [AuthGuard]
+      },
   {
-    path: 'drivers',
-    loadChildren: () => import('./drivers/drivers.module').then( m => m.DriversPageModule),
+    path: 'address',
+    loadChildren: () => import('./address/address.module').then( m => m.AddressPageModule),
     canActivate: [AuthGuard]
-  }
-
+  },
+  {
+    path: 'users',
+    loadChildren: () => import('./users/users.module').then( m => m.UsersPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'edit-user',
+    loadChildren: () => import('./edit-user/edit-user.module').then( m => m.EditUserPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'saved-places',
+    loadChildren: () => import('./saved-places/saved-places.module').then( m => m.SavedPlacesPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'emergency',
+    loadChildren: () => import('./emergency/emergency.module').then( m => m.EmergencyPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'contact',
+    loadChildren: () => import('./contact/contact.module').then( m => m.ContactPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'driver-account',
+    loadChildren: () => import('./driver-account/driver-account.module').then( m => m.DriverAccountPageModule),
+    canActivate: [AuthGuard]
+  },
 
 
 

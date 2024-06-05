@@ -1,13 +1,28 @@
 ion-content {
-    --background: #ffffff;
+  --background: white;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+ion-title {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-weight: bold;
+  font-size: 1.4rem;
 }
 
 ion-toolbar {
-    --background: #004182;   
+  display: flex;
+  justify-content: center;
+  --background: #5b0f7c;  
+  height: 5rem; 
 }
 
 ion-button {
-    margin-top: 33rem;
+  --background: #5b0f7c; 
+  --color: white; 
+  --border-radius: 4px; 
+  --padding: 10px 20px; 
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  margin-top: 25rem;
 }
 
 ion-searchbar {
@@ -23,7 +38,7 @@ ion-searchbar {
 
 .container h4 {
     font-size: 15px;
-    color:#004182;
+    color:#000000;
 }
 
 .container {

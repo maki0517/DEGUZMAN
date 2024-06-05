@@ -95,19 +95,27 @@ export class DropOffLocationPage implements OnInit {
 
   confirm() {
     if (!this.query) {
-      this.authService.presentAlert('Error', 'Please select a drop-off location.');
-      return;
+        this.authService.presentAlert('Error', 'Please select a drop-off location.');
+        return;
     }
+    
+    // Check if the selected drop-off address matches the pick-up address
+    if (this.checkForPickupAddressMatch(this.addressList)) {
+        // Stop execution if there's a match
+        return;
+    }
+    
+    // If no match, proceed with navigation
     this.router.navigate(['/ride-info'], {
-      state: {
-        selectedDateTime: this.selectedDateTime,
-        selectedDriver: this.selectedDriver,
-        selectedDriverEmail: this.selectedDriverEmail,
-        pickUpLocation: this.pickUpLocation,
-        dropOffLocation: this.addressList
-      }
+        state: {
+            selectedDateTime: this.selectedDateTime,
+            selectedDriver: this.selectedDriver,
+            selectedDriverEmail: this.selectedDriverEmail,
+            pickUpLocation: this.pickUpLocation,
+            dropOffLocation: this.addressList
+        }
     });
-  }
+}
 
   async searchAddress() {
     if (this.query === '') {
@@ -115,7 +123,7 @@ export class DropOffLocationPage implements OnInit {
       return;
     }
 
-    if (!this.addressList || this.addressList.length == 0) {
+    if (!this.places || this.places.length == 0) {
       await this.fetchAddresses();
     }
 
@@ -184,10 +192,24 @@ export class DropOffLocationPage implements OnInit {
   }
 
   choosePlace(place: any) {
+    // Check if the selected drop-off address matches the pick-up address
+    if (this.checkForPickupAddressMatch(place)) {
+        // Stop execution if there's a match
+        return;
+    }
+    
     this.addressList = place;
     this.query = place.address;
     this.places = [];
     console.log(this.query);
-  }
+}
+
+  checkForPickupAddressMatch(selectedAddress: any) {
+    if (this.pickUpLocation && selectedAddress.address === this.pickUpLocation.place) {
+        this.authService.presentToast('Error: This address is your pick-up location and cannot be selected as the drop-off location.');
+        return true; 
+    }
+    return false; 
+}
 
 }

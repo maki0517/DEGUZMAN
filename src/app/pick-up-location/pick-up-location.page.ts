@@ -45,7 +45,12 @@ export class PickUpLocationPage implements OnInit {
 
     this.fetchRecentBooks();
     this.fetchSavedAddresses();
+
+    this.query = '';
+    this.places = [];
   }
+
+  
 
   async fetchRecentBooks() {
     const db = getFirestore();
@@ -73,7 +78,7 @@ export class PickUpLocationPage implements OnInit {
         const address: iAddress = {
           id: doc.id,
           title: addressData.title,
-          place: addressData.address,
+          place: addressData.address
         };
         this.savedAddresses.push(address);
       });
@@ -103,11 +108,11 @@ export class PickUpLocationPage implements OnInit {
             place,
             email: this.loggedInUserEmail
           });
-          alert('Address saved successfully');
+          this.authService.presentToast('Address saved successfully');
         } else {
           querySnapshot.forEach(async (doc) => {
             await deleteDoc(doc.ref);
-            alert('Address removed successfully');
+            this.authService.presentToast('Address removed successfully');
           });
         }
       }
@@ -139,11 +144,13 @@ export class PickUpLocationPage implements OnInit {
       this.places = [];
       return;
     }
-
-    if (!this.addressList || this.addressList.length == 0) {
+  
+    if (!this.places || this.places.length == 0) {
       await this.fetchAddresses();
+      console.log(this.query)
+      console.log(this.places)
     }
-
+  
     try {
       const autoCompleteItems = this.addressList.filter(address =>
         address.place.toLowerCase().includes(this.query.toLowerCase()) ||
@@ -152,7 +159,7 @@ export class PickUpLocationPage implements OnInit {
         title: address.title,
         address: address.place
       }));
-
+  
       this.places = autoCompleteItems;
       console.log(this.places);
     } catch (error) {
@@ -171,7 +178,7 @@ export class PickUpLocationPage implements OnInit {
         const address: iAddress = {
           id: doc.id,
           title: addressData['title'],
-          place: addressData['place'],
+          place: addressData['place']
         };
         this.addressList.push(address);
       });

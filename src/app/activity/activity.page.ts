@@ -8,27 +8,26 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./activity.page.scss'],
 })
 export class ActivityPage implements OnInit {
-  books: any[] = [];
+  bookings: any[] = [];
 
-  constructor(private authService: AuthService) {}
+  constructor() { }
 
   async ngOnInit() {
-    const clientEmail = localStorage.getItem('email');
-    if (!clientEmail) {
-      console.error('No client email found in local storage');
-      return;
-    }
+    this.fetchBookings();
+  }
 
+  async fetchBookings() {
     const db = getFirestore();
-    const booksRef = collection(db, 'books');
-    const q = query(booksRef, where('client-email', '==', clientEmail));
+    const bookingsRef = collection(db, 'books');
+    const q = query(bookingsRef);
 
     try {
       const querySnapshot = await getDocs(q);
-      this.books = querySnapshot.docs.map(doc => doc.data());
+      this.bookings = querySnapshot.docs.map(doc => doc.data());
     } catch (error) {
-      console.error('Error fetching books:', error);
+      console.error('Error fetching bookings:', error);
     }
   }
 }
+
 

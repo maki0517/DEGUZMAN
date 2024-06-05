@@ -21,7 +21,7 @@ export class PreBookPage implements OnInit {
   selectedDriverEmail: string = '';
   availableDrivers: { username: string, userEmail: string }[] = [];
   car: Car = new Car();
-  carOptions: string[] = ['2-seaters', '4-seaters', '6-seaters'];
+  carOptions: string[] = ['Motorcycle', 'Sedan', 'SUV'];
   selectedCarType: string = '';
 
   constructor(

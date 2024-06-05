@@ -1,7 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, query, where } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, query, where, updateDoc, doc } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged, 
+  User
+} from 'firebase/auth';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-driver-info',
@@ -10,8 +19,9 @@ import { environment } from 'src/environments/environment';
 })
 export class DriverInfoPage implements OnInit {
   drivers: any[] = [];
+  isLoading: boolean = false;
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.fetchDrivers();
@@ -20,21 +30,45 @@ export class DriverInfoPage implements OnInit {
   async fetchDrivers() {
     const app = initializeApp(environment.firebaseConfig);
     const db = getFirestore(app);
-
+  
     try {
       const q = query(collection(db, 'users'), where('userType', '==', 'driver'));
       const querySnapshot = await getDocs(q);
       const fetchedDrivers = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         carType: doc.data()['carType'],
-        isAvailable: doc.data()['isAvailable'],
-        phone: doc.data()['phone'],
-        userEmail: doc.data()['userEmail'],
+        available: doc.data()['available'],
+        phNo: doc.data()['phNo'],
+        email: doc.data()['email'],
         username: doc.data()['username'],
+        approved: doc.data()['approved'], // Fetch the approval status
       }));
       this.drivers = fetchedDrivers;
     } catch (error) {
       console.error('Error fetching drivers:', error);
     }
   }
+
+  async updateDriverApproval(driverId: string, approvalStatus: boolean) {
+    const app = initializeApp(environment.firebaseConfig);
+    const db = getFirestore(app);
+    const driverRef = doc(db, 'users', driverId);
+  
+    try {
+      await updateDoc(driverRef, { approved: approvalStatus });
+      this.fetchDrivers(); // Refresh the driver list after update
+    } catch (error) {
+      console.error('Error updating driver approval:', error);
+    }
+  }
+  
+  approveDriver(driverId: string) {
+    this.updateDriverApproval(driverId, true);
+  }
+  
+  disapproveDriver(driverId: string) {
+    this.updateDriverApproval(driverId, false);
+  }
+  
+
 }

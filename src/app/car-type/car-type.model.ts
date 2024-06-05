@@ -1,19 +1,22 @@
 export interface iCar {
     id: string;
     type: string[];
-    isAvailable: boolean;
+    rate: number;
+    tax: string;
+   
 
 }
 
 export class Car {
     id: string;
     type: string[] = [];
-    isAvailable: boolean = false;
+    rate: number;
+    tax: string;
     
-        constructor(id: string = '', type: string[] = [], isAvailable: boolean = false) {
+        constructor(id: string = '', type: string[] = [], rate: number = 0, tax: string = '') {
             this.id = id;
             this.type = type;
-            this.isAvailable = isAvailable;
-            
+            this.rate = rate;
+            this.tax = tax;
         }
 }

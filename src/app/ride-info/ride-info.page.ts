@@ -1,7 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { iAddress } from '../admin/admin.model';
 import { AuthService } from '../auth.service';
+import { iAddress, Address } from '../admin/admin.model';
+import {
+  getFirestore,
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+  deleteDoc,
+} from 'firebase/firestore';
 
 @Component({
   selector: 'app-ride-info',
@@ -16,6 +25,7 @@ export class RideInfoPage implements OnInit {
   dropOffLocation: any;
   addressList: iAddress[] = [];
   carType: string[] = [];
+  isLoading: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) { }
 
@@ -36,9 +46,31 @@ export class RideInfoPage implements OnInit {
         selectedDateTime: this.selectedDateTime,
         selectedDriver: this.selectedDriver,
         selectedDriverEmail: this.selectedDriverEmail,
-        addressList: this.addressList,
-        dropOffLocation: this.addressList
+        pickUpLocation: this.pickUpLocation,
+        dropOffLocation: this.dropOffLocation
       }
     });
+  }
+
+  async fetchAddresses() {
+    try {
+      this.isLoading = true;
+      const db = getFirestore();
+      const querySnapshot = await getDocs(collection(db, 'address'));
+      this.addressList = [];
+      querySnapshot.forEach((doc) => {
+        const addressData = doc.data();
+        const address: iAddress = {
+          id: doc.id,
+          title: addressData['title'],
+          place: addressData['place']
+        };
+        this.addressList.push(address);
+      });
+    } catch (error) {
+      console.error('Error fetching addresses:', error);
+    } finally {
+      this.isLoading = false;
+    }
   }
 }

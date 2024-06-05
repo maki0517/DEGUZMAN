@@ -7,17 +7,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content >
   <div class = "book-container">
     <h1>ADDRESS</h1>
     <ion-item>
-      <ion-label position="floating">Title</ion-label>
-      <ion-input type="text" [(ngModel)]="addresses.title"></ion-input>
+      <ion-input type="text" placeholder="Title" [(ngModel)]="addresses.title"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Address</ion-label>
-      <ion-input type="text" [(ngModel)]="addresses.place"></ion-input>
+      <ion-input type="text" placeholder="Address" [(ngModel)]="addresses.place"></ion-input>
     </ion-item>
-    <ion-button color="success" (click)="addAddress()">Add</ion-button>
+    <ion-button color="success" (click)="addAddress()">Save</ion-button>
   </div>
 </ion-content>

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, query, where, getDocs, updateDoc, doc, getDoc} from 'firebase/firestore';
+import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth.service';
-import { getAuth } from 'firebase/auth';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-drivers',
@@ -8,28 +12,99 @@ import { getAuth } from 'firebase/auth';
   styleUrls: ['./drivers.page.scss'],
 })
 export class DriversPage implements OnInit {
-  driverData: any;
-  constructor(private authService: AuthService) { }
+  user: any = {};
+  isEditing: boolean = false;
+  userEmail: string = '';
+  username: string = '';
+  phNo: string = '';
+  carType: string = '';
+
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    const auth = getAuth();
-    const user = auth.currentUser;
+    this.fetchUserDetails();
+    this.checkApprovalStatus();
+  }
 
-    if (user) {
-      this.authService.getDriverData(user.uid)
-        .then(data => {
-          this.driverData = data;
-        })
-        .catch(error => {
-          console.error("Error fetching driver data: ", error);
-        });
+  async fetchUserDetails() {
+    const app = initializeApp(environment.firebaseConfig);
+    const db = getFirestore(app);
+    const emailFromLocalStorage = localStorage.getItem('email');
+
+    if (emailFromLocalStorage) {
+      const q = query(collection(db, 'users'), where('email', '==', emailFromLocalStorage));
+      const querySnapshot = await getDocs(q);
+
+      if (!querySnapshot.empty) {
+        const userData = querySnapshot.docs[0].data();
+        this.user = userData;
+        this.userEmail = userData['email'];
+        this.username = userData['username'];
+        this.phNo = userData['phNo'];
+        this.carType = userData['carType'];
+      } else {
+        console.error('No user found in Firestore for the provided email');
+      }
     } else {
-      console.error("No user is logged in");
+      console.error('No email found in local storage');
     }
   }
 
-  logOut () {
-    this.authService.logout();
+  enableEditing() {
+    this.isEditing = true;
   }
 
+  async saveUserDetails() {
+    const app = initializeApp(environment.firebaseConfig);
+    const db = getFirestore(app);
+    const emailFromLocalStorage = localStorage.getItem('email');
+  
+    if (emailFromLocalStorage) {
+      const q = query(collection(db, 'users'), where('email', '==', emailFromLocalStorage));
+      const querySnapshot = await getDocs(q);
+  
+      if (!querySnapshot.empty) {
+        const userDoc = querySnapshot.docs[0].ref;
+        await updateDoc(userDoc, {
+          userEmail: this.userEmail,
+          username: this.username,
+          phNo: this.phNo,
+        });
+        this.isEditing = false;
+        this.fetchUserDetails();
+      } else {
+        console.error('No user found in Firestore for the provided email');
+      }
+    } else {
+      console.error('No email found in local storage');
+    }
+  }
+
+  signOut() {
+    this.router.navigate(['login']);
+    this.authService.setAuthentication(false);
+  }
+
+  
+  async checkApprovalStatus() {
+    const app = initializeApp(environment.firebaseConfig);
+    const db = getFirestore(app);
+    const user = this.authService.getUser();
+    const userRef = doc(db, 'users', user.uid);
+  
+    try {
+      const docSnap = await getDoc(userRef);
+      if (docSnap.exists()) {
+        const userData = docSnap.data();
+        if (!userData['approved']) {
+          alert('Your account is not verified yet. Please wait for admin approval.');
+        }
+      } else {
+        console.log('No such document!');
+      }
+    } catch (error) {
+      console.error('Error checking approval status:', error);
+    }
+  }
+  
 }

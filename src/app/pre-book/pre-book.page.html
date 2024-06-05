@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-item>
-    <ion-label position="floating">Time and Date</ion-label>
+    <ion-label position="floating">Select Time and Date</ion-label><BR>
     <ion-datetime display-format="h:mm A MMM DD" [(ngModel)]="selectedDateTime"></ion-datetime>
   </ion-item>
 
@@ -28,7 +28,7 @@
     </ion-select>
   </ion-item>
 
-  <ion-button (click)="confirm()">Confirm</ion-button>
+  <ion-button expand="block" (click)="confirm()">Confirm</ion-button>
 </ion-content>
 
 

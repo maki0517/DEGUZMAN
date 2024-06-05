@@ -59,7 +59,7 @@ export class PaymentMatrixPage implements OnInit {
         const docRef = doc(firestore, 'paymentMethods', uid);
         await setDoc(docRef, paymentData);
         console.log('Payment method saved successfully!');
-        this.router.navigate(['/ride-info']);
+        this.router.navigate(['tabs/user-account'])
       } else {
         console.error('No user is logged in.');
       }
@@ -67,4 +67,5 @@ export class PaymentMatrixPage implements OnInit {
       console.error('Error saving payment method: ', error);
     }
   }
+
 }

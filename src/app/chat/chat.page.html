@@ -5,7 +5,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
+  <div class = "text">
+    Find your chats with drivers here!
+  </div>
   <div class="chat-container">
     <div class="messages" *ngFor="let message of messages">
       <div class="message" [ngClass]="{'sent': message.sent, 'received': !message.sent}">

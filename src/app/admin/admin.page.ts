@@ -25,80 +25,24 @@ export class AdminPage{
   addresses: Address = new Address();
   addressList: iAddress[] = [];
   isLoading: boolean = false;
+  userType: string = 'passenger';
 
   constructor(private authService: AuthService, private router: Router) { }
-
-  ionViewWillEnter() {
-    this.fetchAddresses();
-  }
-
-  //admin-new page
-
-  async fetchAddresses() {
-    try {
-      this.isLoading = true;
-      const db = getFirestore();
-      const querySnapshot = await getDocs(collection(db, 'address'));
-      this.addressList = [];
-      querySnapshot.forEach((doc) => {
-        const addressData = doc.data();
-        const address: iAddress = {
-          id: doc.id,
-          title: addressData['title'],
-          place: addressData['place'],
-        };
-        this.addressList.push(address);
-      });
-    } catch (error) {
-      console.error('Error fetching addresses:', error);
-    } finally {
-      this.isLoading = false;
-    }
-  }
-
-  logout() {
-    this.authService.logout();
-  }
 
   signOut() {
     this.router.navigate(['login']);
     this.authService.setAuthentication(false);
   }
 
-  add() {
-    this.router.navigate(['create']);
+  manageAddress () {
+    this.router.navigate(['address']);
   }
 
-  update(address: Address) {
-    this.router.navigate(['update', address.id]);
-    this.authService.newAddressList = this.addressList;
-    this.edit(address);
-    console.log(this.addressList);
+  seeDrivers () {
+    this.router.navigate(['driver-info']);
   }
 
-  edit(address: iAddress) {
-    this.addresses = address;
-  }
-
-  async address() {
-    this.isLoading = true;
-    this.addressList = await this.authService.getAddress();
-    this.authService.newAddressList = this.addressList;
-    this.isLoading = false;
-  }
-
-  async delete(address: Address) {
-    const confirmed = window.confirm('Are you sure you want to delete this address?');
-    
-    if (confirmed) {
-        this.isLoading = true;
-        await this.authService.tryDelete(address);
-        this.authService.presentAlert('Delete', 'Address Deleted');
-        await this.fetchAddresses();
-        this.addresses = new Address();
-        this.isLoading = false;
-    } else {
-      return;
-    }
+  seeUsers () {
+    this.router.navigate(['users']);
   }
 }

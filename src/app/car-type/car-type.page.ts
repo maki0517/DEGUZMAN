@@ -13,7 +13,7 @@ import { collection, getDocs, getFirestore, query, where } from 'firebase/firest
 })
 export class CarTypePage implements OnInit {
   car: Car = new Car();
-  carType: string[] = ['2-seaters', '4-seaters', '6-seaters'];
+  carType: string[] = ['Motorcycle', 'Sedan', 'SUV'];
   availableDrivers: { username: string, userEmail: string }[] = [];
 
   constructor(

@@ -9,7 +9,8 @@ import { AuthService } from '../auth.service';
 export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';
-
+  userType: string = '';
+  
   constructor(private authService: AuthService) {}
 
   ngOnInit() {}

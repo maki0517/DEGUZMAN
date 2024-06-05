@@ -1,9 +1,9 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/dashboard"></ion-back-button>
+      <ion-back-button defaultHref="tabs/user-account"></ion-back-button>
     </ion-buttons>
-    <ion-title>Payment Matrix</ion-title>
+    <ion-title>Payment Method</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -34,6 +34,6 @@
       <ion-input [(ngModel)]="accountPhoneNumber"></ion-input>
     </ion-item>
   </div>
+  <ion-button color="secondary" expand="block" (click)="savePaymentMethod()">Save Payment Method</ion-button>
 
-  <ion-button expand="block" (click)="savePaymentMethod()">Save Payment Method</ion-button>
 </ion-content>

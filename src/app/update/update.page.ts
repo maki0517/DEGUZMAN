@@ -45,7 +45,7 @@ export class UpdatePage implements OnInit {
       return true;
   }
 
-  synch(address: iAddress[]) {
+ synch(address: iAddress[]) {
     address.forEach(place => {
       if (this.id == place.id) {
         this.addresses.id = place.id;
