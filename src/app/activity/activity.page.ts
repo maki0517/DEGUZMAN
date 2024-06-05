@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getFirestore, collection, query, where, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, query, where, getDocs,} from 'firebase/firestore';
 import { AuthService } from '../auth.service';
 
 @Component({

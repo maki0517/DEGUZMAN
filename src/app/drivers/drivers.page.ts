@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
 export class DriversPage implements OnInit {
   user: any = {};
   isEditing: boolean = false;
-  userEmail: string = '';
+  email: string = '';
   username: string = '';
   phNo: string = '';
   carType: string = '';
@@ -38,7 +38,7 @@ export class DriversPage implements OnInit {
       if (!querySnapshot.empty) {
         const userData = querySnapshot.docs[0].data();
         this.user = userData;
-        this.userEmail = userData['email'];
+        this.email = userData['email'];
         this.username = userData['username'];
         this.phNo = userData['phNo'];
         this.carType = userData['carType'];
@@ -66,9 +66,10 @@ export class DriversPage implements OnInit {
       if (!querySnapshot.empty) {
         const userDoc = querySnapshot.docs[0].ref;
         await updateDoc(userDoc, {
-          userEmail: this.userEmail,
+          email: this.email,
           username: this.username,
           phNo: this.phNo,
+          carType: this.carType
         });
         this.isEditing = false;
         this.fetchUserDetails();

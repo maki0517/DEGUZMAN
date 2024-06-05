@@ -16,7 +16,8 @@ const routes: Routes = [
   },
   {
     path: 'emergency-update',
-    loadChildren: () => import('./emergency-update/emergency-update.module').then( m => m.EmergencyUpdatePageModule)
+    loadChildren: () => import('./emergency-update/emergency-update.module').then( m => m.EmergencyUpdatePageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'login',

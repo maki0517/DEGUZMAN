@@ -13,9 +13,9 @@ import { Router } from '@angular/router';
 export class EditUserPage implements OnInit {
   user: any = {};
   isEditing: boolean = false;
-  userEmail: string = '';
+  email: string = '';
   username: string = '';
-  phone: string = '';
+  phNo: string = '';
   carType: string = '';
   
 
@@ -37,9 +37,9 @@ export class EditUserPage implements OnInit {
       if (!querySnapshot.empty) {
         const userData = querySnapshot.docs[0].data();
         this.user = userData;
-        this.userEmail = userData['email'];
+        this.email = userData['email'];
         this.username = userData['username'];
-        this.phone = userData['phNo'];
+        this.phNo = userData['phNo'];
         this.carType = userData['carType'];
       } else {
         console.error('No user found in Firestore for the provided email');
@@ -65,9 +65,9 @@ export class EditUserPage implements OnInit {
       if (!querySnapshot.empty) {
         const userDoc = querySnapshot.docs[0].ref;
         await updateDoc(userDoc, {
-          userEmail: this.userEmail,
+          email: this.email,
           username: this.username,
-          phone: this.phone,
+          phone: this.phNo,
         });
         this.isEditing = false;
         this.fetchUserDetails();
